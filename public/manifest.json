@@ -11,13 +11,10 @@
   "permissions": [
     "storage",
     "tabs",
-    "sidePanel",
     "activeTab"
   ],
   "host_permissions": [
-    "https://web.whatsapp.com/*",
-    "https://*.dynamics.com/*",
-    "https://*.crm*.dynamics.com/*"
+    "https://web.whatsapp.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -30,21 +27,12 @@
     }
   ],
   "action": {
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
     "default_title": "Dynamics 365 Integration"
-  },
-  "side_panel": {
-    "default_path": "sidepanel.html"
-  },
-  "options_page": "options.html",
-  "web_accessible_resources": [
-    {
-      "resources": ["assets/*"],
-      "matches": ["https://web.whatsapp.com/*"]
-    }
-  ]
+  }
 }

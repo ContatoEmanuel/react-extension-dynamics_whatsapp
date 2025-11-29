@@ -9,11 +9,8 @@ interface AuthConfig {
 }
 
 export class AuthManager {
-  private config: AuthConfig;
-
-  constructor(config: AuthConfig) {
-    this.config = config;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(private config: AuthConfig) {}
 
   async getAuthToken(): Promise<string | null> {
     try {

@@ -29,6 +29,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Windows system files
+desktop.ini
+Thumbs.db
+$RECYCLE.BIN/
+
 # Build output
 dist/
 build/
@@ -37,3 +42,7 @@ build/
 *.crx
 *.pem
 *.zip
+
+# Documentation files
+*.md
+!README.md

@@ -1,10 +1,39 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
+import { copyFileSync, mkdirSync, renameSync } from 'fs'
+
+// Plugin para copiar manifest.json e reorganizar HTMLs
+const setupExtensionAssets = () => ({
+  name: 'setup-extension-assets',
+  closeBundle() {
+    try {
+      // Copiar manifest
+      mkdirSync('dist', { recursive: true })
+      copyFileSync('public/manifest.json', 'dist/manifest.json')
+      console.log('✅ manifest.json copiado para dist/')
+      
+      // Mover HTMLs para raiz
+      const pages = ['popup', 'sidepanel', 'options']
+      pages.forEach(page => {
+        const source = `dist/src/pages/${page}/index.html`
+        const dest = `dist/${page}.html`
+        try {
+          renameSync(source, dest)
+          console.log(`✅ ${page}.html movido para raiz do dist/`)
+        } catch (error) {
+          console.warn(`⚠️ Não foi possível mover ${page}.html:`, error)
+        }
+      })
+    } catch (error) {
+      console.error('❌ Erro ao configurar assets:', error)
+    }
+  }
+})
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), setupExtensionAssets()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -19,8 +48,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         // Páginas principais
-        sidepanel: resolve(__dirname, 'src/pages/sidepanel/index.html'),
         popup: resolve(__dirname, 'src/pages/popup/index.html'),
+        sidepanel: resolve(__dirname, 'src/pages/sidepanel/index.html'),
         options: resolve(__dirname, 'src/pages/options/index.html'),
         // Scripts
         background: resolve(__dirname, 'src/background/index.ts'),
@@ -33,10 +62,16 @@ export default defineConfig({
             return '[name].js'
           }
           // Demais assets vão para assets/
-          return 'assets/[name]-[hash].js'
+          return 'assets/[name].js'
         },
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: (assetInfo) => {
+          // HTML files mantém estrutura original (serão movidos pelo plugin)
+          if (assetInfo.name?.endsWith('.html')) {
+            return '[name].[ext]'
+          }
+          return 'assets/[name].[ext]'
+        },
       },
     },
     outDir: 'dist',

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 function App() {
-  const [contactData, setContactData] = useState<any>(null)
+  const [contactData] = useState<any>(null)
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">

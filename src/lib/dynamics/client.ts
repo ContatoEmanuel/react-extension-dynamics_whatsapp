@@ -2,10 +2,8 @@ import axios, { AxiosInstance } from 'axios'
 
 export class DynamicsClient {
   private client: AxiosInstance
-  private baseUrl: string
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl
     this.client = axios.create({
       baseURL: `${baseUrl}/api/data/v9.2`,
       headers: {
