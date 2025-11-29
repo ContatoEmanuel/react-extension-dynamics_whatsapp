@@ -7,7 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependências
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
 node_modules
 dist
 dist-ssr
@@ -19,21 +24,16 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
-*.ntvs
+*.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Variáveis de Ambiente (CRÍTICO - NUNCA REMOVA ISSO)
-.env
-.env.test
-.env.production
-.env.development
-.env.local
+# Build output
+dist/
+build/
 
-# Build da Extensão (Se usar CRXJS ou similar)
-.output
-extension-build/
-
-# Testes
-coverage/
+# Extension package
+*.crx
+*.pem
+*.zip
