@@ -25,6 +25,17 @@ const setupExtensionAssets = () => ({
           console.warn(`⚠️ Não foi possível mover ${page}.html:`, error)
         }
       })
+      
+      // Mover callback.html para raiz
+      try {
+        const callbackSource = 'dist/src/pages/auth/callback.html'
+        const callbackDest = 'dist/auth/callback.html'
+        mkdirSync('dist/auth', { recursive: true })
+        renameSync(callbackSource, callbackDest)
+        console.log('✅ auth/callback.html movido para dist/auth/')
+      } catch (error) {
+        console.warn('⚠️ Não foi possível mover callback.html:', error)
+      }
     } catch (error) {
       console.error('❌ Erro ao configurar assets:', error)
     }
@@ -51,9 +62,12 @@ export default defineConfig({
         popup: resolve(__dirname, 'src/pages/popup/index.html'),
         sidepanel: resolve(__dirname, 'src/pages/sidepanel/index.html'),
         options: resolve(__dirname, 'src/pages/options/index.html'),
+        // Página de autenticação
+        callback: resolve(__dirname, 'src/pages/auth/callback.html'),
         // Scripts
         background: resolve(__dirname, 'src/background/index.ts'),
         content: resolve(__dirname, 'src/content/index.ts'),
+        'auth-callback': resolve(__dirname, 'src/pages/auth/callback.tsx'),
       },
       output: {
         entryFileNames: (chunkInfo) => {

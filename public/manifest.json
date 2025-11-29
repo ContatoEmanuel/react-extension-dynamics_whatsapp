@@ -11,10 +11,24 @@
   "permissions": [
     "storage",
     "tabs",
-    "activeTab"
+    "activeTab",
+    "identity"
   ],
   "host_permissions": [
-    "https://web.whatsapp.com/*"
+    "https://web.whatsapp.com/*",
+    "https://login.microsoftonline.com/*",
+    "https://*.crm.dynamics.com/*",
+    "https://*.crm2.dynamics.com/*",
+    "https://*.crm3.dynamics.com/*",
+    "https://*.crm4.dynamics.com/*",
+    "https://*.crm5.dynamics.com/*",
+    "https://*.crm6.dynamics.com/*",
+    "https://*.crm7.dynamics.com/*",
+    "https://*.crm8.dynamics.com/*",
+    "https://*.crm9.dynamics.com/*",
+    "https://*.crm10.dynamics.com/*",
+    "https://*.crm11.dynamics.com/*",
+    "https://graph.microsoft.com/*"
   ],
   "background": {
     "service_worker": "background.js"

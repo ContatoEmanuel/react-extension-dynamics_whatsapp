@@ -44,5 +44,4 @@ build/
 *.zip
 
 # Documentation files
-*.md
-!README.md
+docs/
